@@ -15,3 +15,49 @@ history_basico = MLP_Basico.fit(
     validation_split=0.2,     # 20% de los datos para validación
     verbose=1
 )
+
+
+
+
+from tensorflow.keras.optimizers import RMSprop
+
+# Compilación
+MLP_Regularizado.compile(
+    optimizer=RMSprop(learning_rate=0.001),    # Optimizador más estable
+    loss='categorical_crossentropy',
+    metrics=['accuracy']
+)
+
+# Ajuste del modelo
+history_reg = MLP_Regularizado.fit(
+    X_train, y_onehot_train,
+    epochs=60,                # más épocas porque converge más lento
+    batch_size=64,
+    validation_split=0.2,
+    verbose=1
+)
+
+
+
+
+
+
+from tensorflow.keras.optimizers import Adam
+
+# Compilación
+MLP_Profundo.compile(
+    optimizer=Adam(learning_rate=0.0005),      # Aprendizaje más bajo para estabilidad
+    loss='categorical_crossentropy',
+    metrics=['accuracy']
+)
+
+# Entrenamiento
+history_prof = MLP_Profundo.fit(
+    X_train, y_onehot_train,
+    epochs=80,                # más épocas por red más profunda
+    batch_size=128,           # lotes más grandes
+    validation_split=0.2,
+    verbose=1
+)
+
+
