@@ -1,0 +1,24 @@
+#Act 1
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
+import tensorflow as tf
+
+# Separamos variables predictoras (X) y la variable objetivo (y)
+X = numeric_columns.drop('Employee_Satisfaction_Score', axis=1)
+y = numeric_columns['Employee_Satisfaction_Score']
+
+# Cambiamos la variable objetivo a 5 categorías numéricas
+y = y.apply(lambda x: round(x) - 1)
+
+# Estandarizamos las variables predictoras
+scaler = StandardScaler()
+X_standar = scaler.fit_transform(X)
+
+# Dividimos en conjuntos de entrenamiento y prueba
+X_train, X_test, y_train, y_test = train_test_split(X_standar, y, test_size=0.33, random_state=42)
+
+# Convertimos las etiquetas en variables categóricas (one-hot)
+y_onehot_train = tf.keras.utils.to_categorical(y_train, 5)
+y_onehot_test = tf.keras.utils.to_categorical(y_test, 5)
+
+
