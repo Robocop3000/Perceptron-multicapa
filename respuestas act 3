@@ -1,0 +1,17 @@
+#Act 3
+from tensorflow.keras.optimizers import Adam
+
+# Modelo 1: MLP_Básico
+MLP_Basico.compile(
+    optimizer=Adam(learning_rate=0.01),        # Tasa de aprendizaje más alta
+    loss='categorical_crossentropy',
+    metrics=['accuracy']
+)
+
+history_basico = MLP_Basico.fit(
+    X_train, y_onehot_train,
+    epochs=40,                # número de iteraciones de entrenamiento
+    batch_size=32,            # tamaño del lote
+    validation_split=0.2,     # 20% de los datos para validación
+    verbose=1
+)
