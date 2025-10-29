@@ -9,3 +9,35 @@ MLP_Basico.add(Dense(5, activation='softmax'))  # 5 clases de salida
 
 MLP_Basico.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 MLP_Basico.summary()
+
+
+
+from tensorflow.keras.layers import Dropout
+from tensorflow.keras import regularizers
+
+# Modelo 2: MLP con regularización
+MLP_Regularizado = Sequential(name="MLP_Regularizado")
+MLP_Regularizado.add(Dense(64, activation='tanh', input_shape=(X_train.shape[1],), kernel_regularizer=regularizers.l2(0.001)))
+MLP_Regularizado.add(Dropout(0.3))
+MLP_Regularizado.add(Dense(32, activation='tanh', kernel_regularizer=regularizers.l2(0.001)))
+MLP_Regularizado.add(Dropout(0.2))
+MLP_Regularizado.add(Dense(5, activation='softmax'))
+
+MLP_Regularizado.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+MLP_Regularizado.summary()
+
+
+
+
+
+
+# Modelo 3: MLP profundo
+MLP_Profundo = Sequential(name="MLP_Profundo")
+MLP_Profundo.add(Dense(128, activation='relu', input_shape=(X_train.shape[1],)))
+MLP_Profundo.add(Dense(64, activation='relu'))
+MLP_Profundo.add(Dense(32, activation='elu'))  # Exponential Linear Unit
+MLP_Profundo.add(Dense(16, activation='relu'))
+MLP_Profundo.add(Dense(5, activation='softmax'))
+
+MLP_Profundo.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+MLP_Profundo.summary()
